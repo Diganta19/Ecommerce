@@ -2,9 +2,13 @@ import React from 'react'
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import {FiShoppingCart} from "react-icons/fi"
+import {CgMenu, CgClose} from "react-icons/cg"
+import { useState } from 'react';
 
 const Nav = () => {
  
+  const[IsMobile,setIsMobile] = useState(false);
+
   const Nav = styled.nav`
     .navbar-lists {
       display: flex;
@@ -104,7 +108,7 @@ const Nav = () => {
         opacity: 0;
         transform: translateX(100%);
         /* transform-origin: top; */
-        transition: all 3s linear;
+        transition: all 0.01s linear;
       }
       .active .navbar-lists {
         visibility: visible;
@@ -139,19 +143,19 @@ const Nav = () => {
 
   return (
     <Nav>
-      <div className='navbar'>
+      <div className={IsMobile ? "navbar active" : "navbar"}>
         <ul className='navbar-lists'>
           <li>
-            <NavLink to="/" className="navbar-link home-link">Home</NavLink>
+            <NavLink to="/" className="navbar-link home-link" onClick={()=>setIsMobile(false)}>Home</NavLink>
           </li>
           <li>
-            <NavLink to="/about" className="navbar-link ">About</NavLink>
+            <NavLink to="/about" className="navbar-link " onClick={()=>setIsMobile(false)}>About</NavLink>
           </li>
           <li>
-            <NavLink to="/products" className="navbar-link ">Products</NavLink>
+            <NavLink to="/products" className="navbar-link " onClick={()=>setIsMobile(false)}>Products</NavLink>
           </li>
           <li>
-            <NavLink to="/contact" className="navbar-link ">Contact</NavLink>
+            <NavLink to="/contact" className="navbar-link " onClick={()=>setIsMobile(false)}>Contact</NavLink>
           </li>
           <li>
             <NavLink to="/cart" className="navbar-link cart-trolley--link"><FiShoppingCart className="cart-trolley"/>
@@ -159,6 +163,11 @@ const Nav = () => {
             </NavLink>
           </li>
         </ul>
+
+        <div className="mobile-navbar-btn">
+          <CgMenu name="menu-outline" className="mobile-nav-icon"  onClick={()=>setIsMobile(true)}/>
+          <CgClose name="close-outline" className="mobile-nav-icon close-outline" onClick={()=>setIsMobile(false)}/>
+        </div>
       </div>
     </Nav>
   )

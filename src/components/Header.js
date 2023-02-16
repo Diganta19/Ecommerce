@@ -15,7 +15,7 @@ const Header = () => {
 export default Header;
 
 const MainHeader = styled.header`
-padding: 0 4 .8rem;
+padding: 0 4.8rem;
 height: 10rem;
 display: flex;
 justify-content: space-between;
