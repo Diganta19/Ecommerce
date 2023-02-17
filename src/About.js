@@ -1,10 +1,14 @@
-import React from 'react';
+
+
 import HeroSection from './components/HeroSection';
+import  {useProductContext}  from './context/productcontext';
+
 
 const About = () => {
+  const {myName} = useProductContext();
   return (
-    <HeroSection  name = "Maxx Ecommerce"/>
+    <>{myName}<HeroSection  name = "Maxx Ecommerce"/></>
   )
 }
 
-export default About
+export default About;
