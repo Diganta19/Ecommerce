@@ -1,8 +1,9 @@
-import { NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom";
+import FormatPrice from "../helpers/FormatPrice";
 
 
 const Product = (currElem) => {
-    const {id,name,price, image, category} = currElem
+    const {id,name,price, image, category} = currElem;
   return (
     <NavLink to={`/singleproduct/${id}`}>
         <div className="card">
@@ -14,7 +15,7 @@ const Product = (currElem) => {
             <div className="card-data">
                 <div className="card-data-flex">
                         <h3>{name}</h3>
-                        <p className="card-data--price">{price}</p>
+                        <p className="card-data--price">{<FormatPrice price={price}/>}</p>
                 </div>
 
             </div>
