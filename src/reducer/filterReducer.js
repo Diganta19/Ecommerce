@@ -8,7 +8,11 @@ const filterReducer = (state,action)=>{
     
             }
             
-            break;
+            case "SET_GRIDVIEW" :
+                return{...state,
+                    grid_view:true,
+                }
+
     
         default:
             return state;
