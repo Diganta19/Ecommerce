@@ -1,9 +1,23 @@
 import React from 'react'
 import {useFilterContext} from "../context/filter_context"
 import styled from 'styled-components';
-
+import {FaCheck} from "react-icons/fa"
 const FilterSection = () => {
-  const {filters:{text},updateFilterValue} = useFilterContext();
+  const {filters:{text,category,color},all_products,updateFilterValue} = useFilterContext();
+
+  const getUniqueData = (data,property)=>{
+    let newVal = data.map((currElem)=>{
+      return currElem[property];
+    });
+    if(property === "colors"){
+      return newVal=("All",[...new Set([].concat(...newVal))])
+    }else{
+   return newVal=["all",...new Set(newVal)];
+    }
+  }
+  const categoryOnlyData =  getUniqueData(all_products,"category");
+  const companyOnlyData =  getUniqueData(all_products,"company");
+  const colourOnlyData = getUniqueData(all_products,"colors")
   return (
     <Wrapper>
     <div className='filter-search'>
@@ -11,6 +25,58 @@ const FilterSection = () => {
         <input type="text" name="text" value={text} onChange={updateFilterValue}/>
       </form>
     </div>
+    <div className='filter-category'>
+      <h3>Category</h3>
+      <div>{categoryOnlyData.map((currElem,index)=>{
+        return <button key={index} type="submit" name="category" value={currElem}
+        onClick={updateFilterValue}>{currElem}</button>
+      })}</div>
+    </div>
+    <div className='filter-company'>
+      <h3>Company</h3>
+      <form action='#'>
+          <select name='company' id='company' className='filter-company--select' onClick={updateFilterValue}>
+            {
+              companyOnlyData.map((currElem,index)=>{
+                return(<option key={index} value={currElem} name="company">{currElem}</option>)
+              })
+            }
+          </select>
+      </form>
+    </div>
+    <div className="filter-colors colors">
+        <h3>Colors</h3>
+
+        <div className="filter-color-style">
+          {colourOnlyData.map((curColor, index) => {
+            if (curColor === "all") {
+              return (
+                <button
+                  key={index}
+                  type="button"
+                  value={curColor}
+                  name="color"
+                  className="color-all--style"
+                  onClick={updateFilterValue}>
+                  all
+                </button>
+              );
+            }
+            return (
+              <button
+                key={index}
+                type="button"
+                value={curColor}
+                name="color"
+                style={{ backgroundColor: curColor }}
+                className={color === curColor ? "btnStyle active" : "btnStyle"}
+                onClick={updateFilterValue}>
+                {color === curColor ? <FaCheck className="checkStyle" /> : null}
+              </button>
+            );
+          })}
+        </div>
+      </div>
     </Wrapper>
   )
 }
@@ -65,6 +131,8 @@ const Wrapper = styled.section`
     text-transform: capitalize;
     border: none;
     cursor: pointer;
+    
+    
   }
   .btnStyle {
     width: 2rem;
