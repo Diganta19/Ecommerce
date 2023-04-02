@@ -97,7 +97,7 @@ return (
               </p>
             </div>
             <hr />
-            {stock >0 && <AddToCart products={singleProduct}/>}
+            {stock >0 && <AddToCart product={singleProduct}/>}
           </div>
         </div>
       </Container>

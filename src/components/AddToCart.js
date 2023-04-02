@@ -6,10 +6,10 @@ import CartAmountToggle from "./CartAmountToggle";
 import {Button} from "../styles/Button";
 import {useCartContext} from "../context/cart_context";
 
-const AddToCart = ({products}) => {
-    const {addTodCart} = useCartContext();
+const AddToCart = ({product}) => {
+    const {addToCart} = useCartContext();
 
-    const {id,colors,stock} = products;  
+    const {id,colors,stock} = product;  
 
     const [amount,setAmount] = useState(1);
     const [color,setColor] = useState(colors[0]);   
@@ -37,7 +37,7 @@ const AddToCart = ({products}) => {
       </div>
 
       <CartAmountToggle amount={amount} setDecrease = {setDecrease} setIncrease = {serIncrease}/>
-      <NavLink to="/cart" onClick={()=> addTodCart(id,amount,color,products)}>
+      <NavLink to="/cart" onClick={()=> addToCart(id,amount,color,product)}>
         <Button className="btn">Add To Cart</Button>
       </NavLink>
     </Wrapper>
