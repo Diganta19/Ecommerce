@@ -25,25 +25,30 @@ const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const addToCart = (id, color, amount, product) => {
-   
      dispatch({ type: "ADD_TO_CART", payload: { id, color, amount, product } });
   };
 
   const removeItem = (id) => {
     dispatch({ type: "REMOVE_ITEM", payload: id });
   };
-
+  const setIncrease=(id)=>{
+    dispatch({type:"SET_INCREASE",payload:id})
+  }
+  const setDecrease=(id)=>{
+    dispatch({type:"SET_DECREASE",payload:id})
+  }
   const clearCart = () =>{
     dispatch({type:"CLEAR_CART"})
   };
 
   useEffect(()=>{
-    console.log(state.cart);
+    dispatch({type:"TOTAL_CART_ITEM"});
+    dispatch({type: "TOTAL_ITEM_TOTAL"});
     localStorage.setItem("maxCart",JSON.stringify(state.cart))
   },[state.cart])
 
   return (
-    <CartContext.Provider value={{ ...state, addToCart, removeItem, clearCart }}>
+    <CartContext.Provider value={{ ...state, addToCart, removeItem, clearCart ,setIncrease,setDecrease}}>
       {children}
     </CartContext.Provider>
   );
